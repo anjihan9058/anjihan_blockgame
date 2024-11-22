@@ -83,6 +83,6 @@ class Ball(Basic):
         # 상단 벽 충돌
     
     def alive(self):
-        # ============================================
-        # TODO: Implement a service that returns whether the ball is alive or not
-        pass
+        if self.rect.top > config.display_dimension[1]:
+            return False  
+        return True
