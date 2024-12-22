@@ -1,12 +1,12 @@
 import math
 import random
 import time
-
 import config
-
 import pygame
+
 from pygame.locals import Rect, K_LEFT, K_RIGHT
 
+ITEMS = []
 
 class Basic:
     def __init__(self, color: tuple, speed: int = 0, pos: tuple = (0, 0), size: tuple = (0, 0)):
@@ -35,9 +35,13 @@ class Block(Basic):
     
     def collide(self):
         self.alive = False
-
-
-
+        # 일정 확률로 아이템 생성
+        if random.random() < 0.5:  # 50% 확률
+            item = Item(color=random.choice(config.item_color), pos=self.rect.center)
+            ITEMS.append(item)
+            print(f"Item created! Total items: {len(ITEMS)}")
+            
+        
 class Paddle(Basic):
     def __init__(self):
         super().__init__(config.paddle_color, 0, config.paddle_pos, config.paddle_size)
@@ -68,10 +72,7 @@ class Ball(Basic):
         for block in blocks:
             if block.alive and self.rect.colliderect(block.rect): 
                 block.collide()  
-                if abs(self.rect.left - block.rect.right) < 5 or abs(self.rect.right - block.rect.left) < 5:
-                    self.dir = 180 - self.dir
-                elif abs(self.rect.top - block.rect.bottom) < 5 or abs(self.rect.bottom - block.rect.top) < 5:
-                    self.dir = -self.dir
+                self.dir = -self.dir
         blocks[:] = [block for block in blocks if block.alive]
 
     def collide_paddle(self, paddle: Paddle) -> None:
@@ -89,3 +90,18 @@ class Ball(Basic):
         if self.rect.top > config.display_dimension[1]:
             return False  
         return True
+
+class Item(Basic):
+    def __init__(self, color: tuple, pos: tuple = (0, 0), size: tuple = (20, 20), effect=None):
+        super().__init__(color, 0, pos, size)
+        self.effect = effect  # 아이템 효과 (예: 점수 증가, 속도 증가 등)
+        self.alive = True
+
+    def draw(self, surface):
+        pygame.draw.rect(surface, self.color, self.rect)
+
+    def move(self):
+        self.rect.move_ip(0, 5)  # 아이템은 아래로 떨어지게 설정
+        self.center = (self.rect.centerx, self.rect.centery)
+        if self.rect.top > config.display_dimension[1]:
+            self.alive = False  # 화면 아래로 떨어지면 아이템 제거
