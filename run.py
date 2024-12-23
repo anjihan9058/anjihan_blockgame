@@ -1,22 +1,21 @@
-import pygame
-import random
 import sys
-import time
+from implements import Basic, Block, Paddle, Ball
 import config
-from implements import Block, Paddle, Ball, Item
-from implements import ITEMS
-from pygame.locals import QUIT, K_ESCAPE, K_SPACE, K_LEFT, K_RIGHT
+
+import pygame
+from pygame.locals import QUIT, Rect, K_ESCAPE, K_SPACE
 
 
 pygame.init()
 pygame.key.set_repeat(3, 3)
-
 surface = pygame.display.set_mode(config.display_dimension)
+
 fps_clock = pygame.time.Clock()
 
 paddle = Paddle()
 ball1 = Ball()
 BLOCKS = []
+ITEMS = []
 BALLS = [ball1]
 life = config.life
 start = False
@@ -35,7 +34,7 @@ def create_blocks():
             color = config.colors[color_index]
             block = Block(color, (x, y))
             BLOCKS.append(block)
-            
+
 
 def tick():
     global life
@@ -45,16 +44,15 @@ def tick():
     global paddle
     global ball1
     global start
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == K_ESCAPE:
+            if event.key == K_ESCAPE:  # ESC 키가 눌렸을 때
                 pygame.quit()
                 sys.exit()
-            if event.key == K_SPACE:
+            if event.key == K_SPACE:  # space키가 눌려지만 start 변수가 True로 바뀌며 게임 시작
                 start = True
             paddle.move_paddle(event)
 
@@ -68,13 +66,8 @@ def tick():
         ball.collide_block(BLOCKS)
         ball.collide_paddle(paddle)
         ball.hit_wall()
-        if not ball.alive():
+        if ball.alive() == False:
             BALLS.remove(ball)
-
-    for item in ITEMS[:]:
-        item.move()
-        if item.rect.top > config.display_dimension[1]:  # 화면 아래로 나가면 제거
-            ITEMS.remove(item)
 
 
 def main():
@@ -97,6 +90,7 @@ def main():
 
         for block in BLOCKS:
             block.draw(surface)
+
         cur_score = config.num_blocks[0] * config.num_blocks[1] - len(BLOCKS)
 
         score_txt = my_font.render(f"Score : {cur_score * 10}", True, config.colors[2])
@@ -120,11 +114,6 @@ def main():
                 if start == True:
                     ball.move()
                 ball.draw(surface)
-
-            for item in ITEMS:
-                item.draw(surface)
-                item.move()  # 아이템 이동 (아래로 떨어짐)
-                
             for block in BLOCKS:
                 block.draw(surface)
 
