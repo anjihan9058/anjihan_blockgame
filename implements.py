@@ -115,9 +115,10 @@ class Item(Basic):
         self.center = (self.rect.centerx, self.rect.centery)
         if self.rect.top > config.display_dimension[1]:
             self.alive = False  # 화면 아래로 떨어지면 아이템 제거
+            
     def collide_paddle(self, paddle: Paddle):
         if self.rect.colliderect(paddle.rect):
-            if self.effect == "add_ball" and self.alive:
+            if self.effect == "add_ball" and self.alive: # 공 추가 효과는 1 반
                 return 1
             self.alive = False
         return 0

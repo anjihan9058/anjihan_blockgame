@@ -75,14 +75,14 @@ def tick():
         if item.rect.top > config.display_dimension[1]:  # 화면 아래로 나가면 제거
             ITEMS.remove(item)
 
-    paddle.collide_item(ITEMS)
+    paddle.collide_item(ITEMS) # 패들과 아이템의 충돌 감지
 
     for item in ITEMS:
-        result = item.collide_paddle(paddle)
-        if result == 1:
+        result = item.collide_paddle(paddle) # 아이템이 패들에 충돌 시
+        if result == 1: # 1번 효과(공 추가)
             new_ball = Ball(pos=(paddle.rect.centerx, paddle.rect.top - 10))
             BALLS.append(new_ball)
-            ITEMS.remove(item)
+            ITEMS.remove(item) # 공 생성 및 아이템 제거
 
 
 def main():
