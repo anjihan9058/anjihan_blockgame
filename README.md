@@ -7,12 +7,15 @@
 ### 1. **기능 1: 블록을 깨면 20%의 확률로 빨간색 아이템이 떨어짐**
    - 블록이 깨지면 20%의 확률로 빨간색 아이템이 떨어집니다. 이를 패들로 닿게해서 아이템을 먹을 수 있습니다.
 
-   ![기능1 화면](스크린샷1.png)
+![1](https://github.com/user-attachments/assets/e91c34ef-637b-42e6-ad76-ff92b12298a7)
+![2](https://github.com/user-attachments/assets/e2a8bcf4-3522-4dc3-910a-6d855c9a35bf)
 
 ### 2. **기능 2: 빨간색 공 아이템을 패들이 먹는다면 패들에서 공 하나 추가로 발사**
    - 빨간색 공 아이템을 패들에 닿게해서 먹는다면, 패들에서 공이 하나 추가로 발사됩니다.
+   - 
+![image](https://github.com/user-attachments/assets/0b898e71-baed-48b4-a136-4a0375fe62fb)
 
-   ![기능2 화면](스크린샷2.png)
+
 
 ## 기여자 (Contributors)
 
