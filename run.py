@@ -3,8 +3,7 @@ import random
 import sys
 import time
 import config
-from implements import Block, Paddle, Ball, Item
-from implements import ITEMS
+from implements import Block, Paddle, Ball, Item, ITEMS # Item 객체 추가
 from pygame.locals import QUIT, K_ESCAPE, K_SPACE, K_LEFT, K_RIGHT
 
 
@@ -74,6 +73,15 @@ def tick():
     for item in ITEMS[:]:
         item.move()
         if item.rect.top > config.display_dimension[1]:  # 화면 아래로 나가면 제거
+            ITEMS.remove(item)
+
+    paddle.collide_item(ITEMS)
+
+    for item in ITEMS:
+        result = item.collide_paddle(paddle)
+        if result == 1:
+            new_ball = Ball(pos=(paddle.rect.centerx, paddle.rect.top - 10))
+            BALLS.append(new_ball)
             ITEMS.remove(item)
 
 

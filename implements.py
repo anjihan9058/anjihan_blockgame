@@ -36,10 +36,10 @@ class Block(Basic):
     def collide(self):
         self.alive = False
         # 일정 확률로 아이템 생성
-        if random.random() < 0.5:  # 50% 확률
-            item = Item(color=random.choice(config.item_color), pos=self.rect.center)
-            ITEMS.append(item)
-            print(f"Item created! Total items: {len(ITEMS)}")
+        if random.random() < 0.2:  # 20% 확률
+            item = Item(color=random.choice(config.item_color), pos=self.rect.center) #색상 랜덤, 위치는 블록 중앙
+            ITEMS.append(item) #ITEMS 에 추가
+            print(f"Item created! Total items: {len(ITEMS)}") # 디버깅
             
         
 class Paddle(Basic):
@@ -57,6 +57,13 @@ class Paddle(Basic):
             self.rect.move_ip(-self.speed, 0)
         elif event.key == K_RIGHT and self.rect.right < config.display_dimension[0]:
             self.rect.move_ip(self.speed, 0)
+
+    def collide_item(self, items: list):
+        for item in items:
+            if item.alive and self.rect.colliderect(item.rect):
+                item.collide_paddle(self)
+                if not item.alive:
+                    items.remove(item)
 
 
 class Ball(Basic):
@@ -94,8 +101,11 @@ class Ball(Basic):
 class Item(Basic):
     def __init__(self, color: tuple, pos: tuple = (0, 0), size: tuple = (20, 20), effect=None):
         super().__init__(color, 0, pos, size)
-        self.effect = effect  # 아이템 효과 (예: 점수 증가, 속도 증가 등)
+        self.effect = effect  # 아이템 효과
         self.alive = True
+
+        if self.color == (255, 0, 0):
+            self.effect = "add_ball"
 
     def draw(self, surface):
         pygame.draw.rect(surface, self.color, self.rect)
@@ -105,3 +115,9 @@ class Item(Basic):
         self.center = (self.rect.centerx, self.rect.centery)
         if self.rect.top > config.display_dimension[1]:
             self.alive = False  # 화면 아래로 떨어지면 아이템 제거
+    def collide_paddle(self, paddle: Paddle):
+        if self.rect.colliderect(paddle.rect):
+            if self.effect == "add_ball" and self.alive:
+                return 1
+            self.alive = False
+        return 0
