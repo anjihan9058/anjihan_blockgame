@@ -18,4 +18,4 @@
 
 이 프로젝트는 기여자 함께 작업하여 완성되었습니다. 기여자들은 이슈 2개에 대해서 다양한 기능을 구현해서 게임을 완성시켰습니다.
 
-- **Contributor 1**: [GitHub 프로필 링크]((https://github.com/jjy13245)) - 게임의 추가적인 로직 구현
+- **Contributor 1**: (https://github.com/username)[GitHub 프로필 링크]((https://github.com/jjy13245)) - 게임의 추가적인 로직 구현
