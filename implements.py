@@ -36,10 +36,10 @@ class Block(Basic):
     def collide(self):
         self.alive = False
         # 일정 확률로 아이템 생성
-        if random.random() < 0.5:  # 50% 확률
-            item = Item(color=random.choice(config.item_color), pos=self.rect.center)
-            ITEMS.append(item)
-            print(f"Item created! Total items: {len(ITEMS)}")
+        if random.random() < 0.2:  # 20% 확률
+            item = Item(color=random.choice(config.item_color), pos=self.rect.center) #색상 랜덤, 위치는 블록 중앙
+            ITEMS.append(item) #ITEMS 에 추가
+            print(f"Item created! Total items: {len(ITEMS)}") # 디버깅
             
         
 class Paddle(Basic):
@@ -94,7 +94,7 @@ class Ball(Basic):
 class Item(Basic):
     def __init__(self, color: tuple, pos: tuple = (0, 0), size: tuple = (20, 20), effect=None):
         super().__init__(color, 0, pos, size)
-        self.effect = effect  # 아이템 효과 (예: 점수 증가, 속도 증가 등)
+        self.effect = effect  # 아이템 효과
         self.alive = True
 
     def draw(self, surface):

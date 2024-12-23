@@ -3,8 +3,7 @@ import random
 import sys
 import time
 import config
-from implements import Block, Paddle, Ball, Item
-from implements import ITEMS
+from implements import Block, Paddle, Ball, Item, ITEMS # Item 객체 추가
 from pygame.locals import QUIT, K_ESCAPE, K_SPACE, K_LEFT, K_RIGHT
 
 
