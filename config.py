@@ -38,7 +38,7 @@ ball_size = (20, 20)
 
 
 # Setting for items
-item_size = (50, 50)
+item_size = (20, 20)
 item_prob = 0.2
 
 item_color = [(255, 0, 0), (0, 0, 255)]
