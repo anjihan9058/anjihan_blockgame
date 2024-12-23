@@ -38,20 +38,10 @@ ball_size = (20, 20)
 
 
 # Setting for items
-item_size = (20, 20)
-one_more_prob = 0.3
-fever_prob = 0.1
-add_score_prob = 0.1
-paddle_long_prob = 0.1
+item_size = (50, 50)
+item_prob = 0.2
 
-fever_time = 5
-
-add_score = 100
-add_score_color = (0, 255, 0)
-
-paddle_long_ratio = 2
-paddle_long_time = 5
-paddle_long_color = (0, 126, 255)
+item_color = [(255, 0, 0), (0, 0, 255)]
 
 colors = [(255, 0, 0), (255, 165, 0), (255, 255, 0)]
 collision_limit = len(colors) - 1
